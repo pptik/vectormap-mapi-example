@@ -1,6 +1,6 @@
 //definisi koordinat
 var mymap = new L.map("mapid", {
-    center: [-8, 120],
+    center: [-3, 120],
     zoom: 5
 });
 
@@ -11,34 +11,33 @@ var gambarPetaDasar = L.tileLayer('http://vectormap.pptik.id/styles/klokantech-b
     attribution: '&copy; <a href="https://vectormap.pptik.id">PPTIK</a>'
 }).addTo(mymap);
 
+var jsonLayer = L.geoJson().addTo(mymap);
 
-// var jsonLayer = L.geoJson().addTo(mymap);
-
-// Load Json Data
-// gambarPetaDasar.on("tileload", function( event ){
-// 	var z = event.coords.z;
-// 	var x = event.coords.x;
-// 	var y = event.coords.y;
+//Load Json Data
+gambarPetaDasar.on("tileload", function( event ){
+	var z = event.coords.z;
+	var x = event.coords.x;
+	var y = event.coords.y;
     
-// 	var jsonString = "http://localhost/" + z + "-" + x + "-" +  y + ".geojson";
+	var jsonString = "http://localhost/" + z + "-" + x + "-" +  y + ".geojson";
     
-// 	$.getJSON( jsonString, function(json){
-// 		jsonLayer.addData(json);
-// 	} );
+	$.getJSON( jsonString, function(json){
+		jsonLayer.addData(json);
+	} );
     
-// });
+});
 
-// clear data ketika zoomend
-// mymap.on("zoomend", function(){
-//     jsonLayer.clearLayers();
-// });
+//clear data ketika zoomend
+mymap.on("zoomend", function(){
+    jsonLayer.clearLayers();
+});
 
-// //load layer objek spesifik di mapi
-// $.ajax({
-//     type: "GET",
-// 	url: 'http://mapi.pptik.id/api/itbStreet',
-// 	dataType: 'json',
-// 	success: function (response) {
-// 		L.geoJSON(response).addTo(mymap);
-// 	}
-// });
+//load layer objek spesifik di mapi
+$.ajax({
+    type: "GET",
+	url: 'http://mapi.pptik.id/api/itbStreet',
+	dataType: 'json',
+	success: function (response) {
+		L.geoJSON(response).addTo(mymap);
+	}
+});
