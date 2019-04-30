@@ -28,26 +28,7 @@
 <body>
 
 <div id="mapid" style="height: 98vh;"></div>
-<script>
-	//definisi koordinat
-	var mymap = L.map('mapid').setView([-6.914744, 107.609810], 13);
-
-	//load peta dasar melalui vectormap
-	L.mapboxGL({
-	    accessToken: '-',
-    	    style: 'http://vectormap.pptik.id/styles/osm-bright/style.json'
-	}).addTo(mymap);
-	
-	//load layer objek spesifik di mapi
-	$.ajax({
-	    type: "GET",
-		url: 'http://mapi.pptik.id/api/getBandungStreet?streetName=sari',
-		dataType: 'json',
-		success: function (response) {
-			L.geoJSON(response).addTo(mymap);
-		}
-	});
-</script>
+<script src="peta.js"></script>
 
 </body>
 </html>
